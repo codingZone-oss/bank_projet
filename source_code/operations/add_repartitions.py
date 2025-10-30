@@ -1,0 +1,1 @@
+# fazer um inner join entre a tabela add_repartition_worker com as tabela repartition para pegar os dados do adm e os dados das repartições
