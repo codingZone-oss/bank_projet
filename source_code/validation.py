@@ -1,13 +1,14 @@
-from funcionalitys import colors, __character__ as char
+from funcionalitys import colors, __character__ as char, __count_space__ as space, __count_numeric__
 
 
 def __valid_name__(name1) -> str:
     while True:
         name = input(name1).split()
-        if len(name) < 2: # verificar se o tamanho da frase e inferior a 2
-            print(f"{colors['red']}Invalid Name!{colors['clear']}") # se for, vai entrar no loop 
+        if len(name) < 2:
+            print(f"{colors['red']}Invalid Name!{colors['clear']}") 
             continue
-        elif [print(f"{colors['red']}Invalid Name!{colors['clear']}") for n in name for a in n if len(n) < 2 or a.isnumeric()]:
+        elif __count_numeric__(name) == True:
+            print(f"{colors['red']}Invalid Name2 {colors['clear']}")
             continue
         elif [print(f"{colors['red']}Invalid Name!{colors['clear']}") for n in name for a in n if a in char()]:
             continue
@@ -58,10 +59,52 @@ def __valid_password__(password1) -> str:
             print(f"{colors['red']}Invalid PassWord!{colors['clear']}")  
             continue
 
-        elif [print(f"{colors['red']}Invalid password!{colors['clear']}") for p in password for s in p if s.isspace()]:
-            continue
-
         else:
             password2 = "".join(password)
             return str(password2).strip()
         
+
+def __valid_email__(email1) -> str:
+    while True:
+        email = input(email1).split("@")
+
+        if email1.count('@') != 1:
+            print(f"{colors['red']}Invalid email!{colors['clear']}")
+            continue
+        
+        if space(email) == True:
+            print(f"{colors['red']}Invalid email! Can´t have Space{colors['clear']}")
+            continue
+    
+        elif not "gmail.com" in email:
+                print(f"{colors['red']}Invalid email! '@gmail.com' It´s Necessary{colors['clear']}")  
+                continue
+        
+        else:
+            email2 = "@".join(email)
+            return str(email2).strip()
+        
+
+def __valid_user_name__(user_name1) -> str:
+    while True:
+        user_name = input(user_name1).split()
+        if not len(user_name) == 1: 
+            print(f"{colors['red']}Invalid PassWord!{colors['clear']}")  
+            continue
+        else:
+            user_name2 = "".join(user_name)
+            return str(user_name2).strip()
+        
+
+def __valid_date__(date1) -> str:
+    date = input(date1).strip()
+    a = date[0:2]
+    b = date[3:5]
+    c = date[6:10]
+    while len(date) != 10 or not a.isnumeric() or int(a) > 31 or not b.isnumeric() or int(b) > 12 or not c.isnumeric() or int(c) < 1950 or date[2] != '/' or date[5] != '/':
+        date = input(f"{colors['red']}Invalid Date, Try:01/02/2000 {colors['clear']}").strip()
+        a = date[0:2]
+        b = date[3:5]
+        c = date[6:10]
+    return (date)
+

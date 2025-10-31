@@ -1,5 +1,6 @@
 import os
 
+
 colors = {"clear":  "\033[m",
          "red":     "\033[31m",
          "green":   "\033[32m",
@@ -8,6 +9,7 @@ colors = {"clear":  "\033[m",
          "purple":  "\033[35m",
          "sky_blue": "\033[36m",
          "gray":    "\033[37m"}
+
 
 def __Error_Handle__(value=False) -> None:
     if value == True:
@@ -19,8 +21,10 @@ def __Error_Handle__(value=False) -> None:
         print(f'{colors["red"]}Write only int values!{colors["clear"]}'.center(40))
         palete()
 
+
 def __cleanup__():
     os.system('cls')
+
 
 def palete(boolean=False, text=None):
     if boolean == True:
@@ -51,11 +55,28 @@ def integer(value):
             continue
         else:
             return num
-        
-def __character__() -> list:
+
+
+def __especial_character__() -> list:
     list = ["!", "@", "#", "$", "%", "&", "/", "*", "(", ")", "=", "'", '"', "-", "_", ">", "<", ";", ".", ":", ",", "´", "+", "~", "|", "\\", "}", "{", "]", "[", "€", "§", "£", ""]
     
     return list
+
+
+def __count_space__(values=False) -> bool:
+     for v in values:
+        for a in v:
+             if a.isspace():
+                return True
+
+
+def __count_numeric__(values=False) -> bool:
+     for v in values:
+        for a in v:
+             if a.isnumeric():
+                return True
+
+
 '''
 def bilhete(bi1) -> str:
     bi = input(bi1)
