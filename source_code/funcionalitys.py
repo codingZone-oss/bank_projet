@@ -55,7 +55,9 @@ def __worker_menu__() -> int:
     print("3. Search Client")
     print("4. Update Client")
     print("5. Delete Client")
-    print("0. Leav..")
+    print("6. Leav to login..")
+    print("0. Leav to Home..")
+
     palete()
     resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
     return resp
