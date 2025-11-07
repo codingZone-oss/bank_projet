@@ -11,14 +11,17 @@ colors = {"clear":  "\033[m",
          "gray":    "\033[37m"}
 
 
-def __Error_Handle__(value=False) -> None:
-    if value == True:
+def __Error_Handle__(value=0, staff=None) -> None:
+    if value == 1:
         palete()
         print(f'{colors["red"]}Invalid Option!{colors["clear"]}'.center(40))
         palete()
+    elif value == 2:
+        palete()
+        print(f'{colors["red"]}user_name or password Incorect!{colors["clear"]}'.center(40))
     else:
         palete()
-        print(f'{colors["red"]}Write only int values!{colors["clear"]}'.center(40))
+        print(f'{colors["red"]}Write only {staff} values!{colors["clear"]}'.center(40))
         palete()
 
 
@@ -35,11 +38,23 @@ def palete(boolean=False, text=None):
         print("_" * 30)
 
 
-def menu() -> int:
+def __menu__() -> int:
     print("1. Log as Adm")
     print("2. Log as Grh")
     print("3. Log as normal worker")
     print("4. Log as client")
+    print("0. Leav..")
+    palete()
+    resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
+    return resp
+
+
+def __worker_menu__() -> int:
+    print("1. Add Client")
+    print('2  Print Client Extract')
+    print("3. Search Client")
+    print("4. Update Client")
+    print("5. Delete Client")
     print("0. Leav..")
     palete()
     resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
@@ -51,7 +66,7 @@ def integer(value):
         try:
             num = int(input(value))
         except ValueError:
-            __Error_Handle__()
+            __Error_Handle__(staff='Integer')
             continue
         else:
             return num
@@ -75,6 +90,32 @@ def __count_numeric__(values=False) -> bool:
         for a in v:
              if a.isnumeric():
                 return True
+
+
+def real(test) -> float:
+    while True:
+        try:
+            num = float(input(test))
+        except ValueError:
+            __Error_Handle__(staff='Real')
+            continue
+        else:
+            return num
+
+
+def __while__(argument) -> None:
+    while True:
+        argument
+        palete()
+        resp = input('\033[33mDo you Proced: \033[m').lower()
+        if resp == "y":
+            continue
+        while resp != "y" and resp != "n":
+            palete()
+            resp = input(f'{colors["red"]}Write only{colors['clear']} [y/n]').lower()
+        if resp == "n":
+            palete()
+            break
 
 
 '''
@@ -103,15 +144,7 @@ def iguais(num) -> list:
         numero2.append(int(c))
     return numero2
 
-def real(teste) -> float:
-    while True:
-        try:
-            num = float(input(teste))
-        except ValueError:
-            print(f'\033[31mEscreva apenans valores numericos! \033[m')
-            continue
-        else:
-            return num
+
 
 def genero(teste) -> str:
     coisa = input(teste)
@@ -126,14 +159,4 @@ def return_int() -> int:
     return numero_unico
 
 
-def enquanto(argumento):
-    while True:
-        argumento()
-        resp = input('\033[33mQuer continuar: \033[m').lower()
-        if resp == "s":
-            continue
-        while resp != "s" and resp != "n":
-            design()
-            resp = input('\033[31mDigite Apenas\033[m [s/n]').lower()
-        if resp == "n":
-            break'''
+'''

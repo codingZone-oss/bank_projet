@@ -1,4 +1,4 @@
-from funcionalitys import colors, __character__ as char, __count_space__ as space, __count_numeric__
+from funcionalitys import colors, __especial_character__ as char, __count_space__ as space, __count_numeric__
 
 
 def __valid_name__(name1) -> str:
@@ -89,11 +89,11 @@ def __valid_user_name__(user_name1) -> str:
     while True:
         user_name = input(user_name1).split()
         if not len(user_name) == 1: 
-            print(f"{colors['red']}Invalid PassWord!{colors['clear']}")  
+            print(f"{colors['red']}Invalid User_Name!{colors['clear']}")  
             continue
         else:
             user_name2 = "".join(user_name)
-            return str(user_name2).strip()
+            return str(user_name2).strip().lower()
         
 
 def __valid_date__(date1) -> str:

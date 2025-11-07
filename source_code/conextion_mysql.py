@@ -8,10 +8,17 @@ try:
     password = "",
     database = "bank_bd"
     )
+
+except FileNotFoundError:
+    print('Data Base not Found')
+
+except FileExistsError:
+    print(f'Data Base bank_bd not Existis')
+
 except:
     print('something wrong')
 
 
 cursor = conextion.cursor()
 
-conextion.close()
+# conextion.close()

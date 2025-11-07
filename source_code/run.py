@@ -1,19 +1,23 @@
-from funcionalitys import palete as pal, menu, __cleanup__ as clen,  __Error_Handle__
-clen()
-pal(True, "WellCome")
+from funcionalitys import palete as pal, __menu__, __cleanup__ as clen,  __Error_Handle__, __while__
+from user import __login__
 
-while (True):
-    resp = menu()
-    match resp:
-        case 1:
-            pass
-        case 2:
-            pass
-        case 3:
-            pass
-        case 4:
-            pass
-        case 0:
-            break
-        case _:
-            __Error_Handle__(True)
+def __run__() -> None:
+    clen()
+    pal(True, "WellCome")
+
+    while (True):
+        resp = __menu__()
+        match resp:
+            case 1:
+                __login__(1, 'Adm')
+            case 2:
+                __login__(2, 'GRH')
+            case 3:
+                __login__(3, 'Normal Worker')
+            case 4:
+                pass
+            case 0:
+                break
+            case _:
+                __Error_Handle__(1)
+__run__()

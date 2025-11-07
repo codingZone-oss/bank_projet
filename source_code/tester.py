@@ -102,3 +102,74 @@ print(type(__valid_user_name__()))'''
     return (date)
 print(type(__valid_date__()))'''
 
+'''vet = list()
+for line in cursor:
+    for l in line:
+        vet.append(l)
+'''
+'''
+este é o primeiro funcional
+while True:
+    cont = 0        
+    while cont <= len(vet):
+        if 'cazenga' in vet[0] and 'luanda' in vet[1]:
+            printer()
+            break
+        else:
+            __error_handle__(2)
+            break
+        cont += 1
+    palete()
+    resp = input('\033[33mDo you Proced: \033[m').lower()
+    if resp == "y":
+        continue
+    while resp != "y" and resp != "n":
+        palete()
+        resp = input(f'{colors["red"]}Write only{colors['clear']} [y/n]').lower()
+    if resp == "n":
+        palete()
+        break'''
+
+'''
+# this is works very well
+while True:
+    for vet1 in range(1):
+        if 'cazenga' in vet[0] and 'luanda' in vet[1]:
+            printer()
+        else:
+            __error_handle__(2)
+    palete()
+    resp = input('\033[33mDo you Proced: \033[m').lower()
+    if resp == "y":
+        continue
+    while resp != "y" and resp != "n":
+        palete()
+        resp = input(f'{colors["red"]}Write only{colors['clear']} [y/n]').lower()
+    if resp == "n":
+        palete()
+        break'''
+
+'''
+i dont know wy, but have been difficult works with tuple i thougth that they had the same phisoloph with list but it´s look not.
+
+when i tried make a loop with them, that only works in the first iteration but the second one it´s do not worsk, im trying understand yours composition but that is not a simples task
+
+while True:
+    for line in cursor:
+        for l in line:
+            if 'cazenga' in l and 'luanda' in l:
+                printer()
+                break
+            else:
+                __error_handle__(2)
+                break
+    palete()
+    resp = input('\033[33mDo you Proced: \033[m').lower()
+    if resp == "y":
+        continue
+    while resp != "y" and resp != "n":
+        palete()
+        resp = input(f'{colors["red"]}Write only{colors['clear']} [y/n]').lower()
+    if resp == "n":
+        palete()
+        break'''
