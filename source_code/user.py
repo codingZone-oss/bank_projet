@@ -1,9 +1,9 @@
 from conextion_mysql import cursor
 from validation import __valid_user_name__, __valid_password__
-from funcionalitys import __Error_Handle__ as __error_handle__, palete, colors, __cleanup__
-from admin import printer
-from grh import printer2
-from normal_worker import menu
+from funcionalitys import __Error_Handle__ as __error_handle__, palete, colors, __cleanup__, __chek__
+from admin import __menu_admin__
+from grh import __menu_grh__
+from normal_worker import __menu_worker__
 
 
 try:
@@ -20,7 +20,7 @@ def __login__(value, funtion) -> None:
     while True:
         __cleanup__()
         tester = tester1 = 0
-        print(f'Log as {funtion}:_ ')
+        print(f'Log as {funtion}:')
         palete()
         user_name = __valid_user_name__('User Name: ')
         password = __valid_password__('PassWord: ')
@@ -28,15 +28,25 @@ def __login__(value, funtion) -> None:
             if user_name == v[0] and password == v[1]:
                 if value == 1:
                     tester1 = 1
-                    printer()
+                    if __chek__(user_name, 'adm') == True:
+                        tester = __menu_admin__(user_name)
+                    else:
+                        __error_handle__(3)
                     
                 elif value == 2:
                     tester1 = 1
-                    printer2()
+                    if __chek__(user_name, 'grh') == True:
+                        tester = __menu_grh__(user_name)
+                    else:
+                        __error_handle__(3)
+
                     
                 elif value == 3:
                     tester1 = 1
-                    tester = menu(user_name)
+                    if __chek__(user_name, 'normal worker') == True:
+                        tester = __menu_worker__(user_name)
+                    else:
+                        __error_handle__(3)
                     
         if tester1 == 0:
             __error_handle__(2)
@@ -73,9 +83,9 @@ def __login1__(value) -> None:
         for v in range(1):
             if user_name in vet[0] and password in vet[1]:
                 if value == 1:
-                    printer()
+                    pass
                 elif value == 2:
-                    printer2()
+                    pass
                 elif value == 3:
                     pass
             else:

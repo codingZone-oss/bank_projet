@@ -1,5 +1,6 @@
 from funcionalitys import palete as pal, __menu__, __cleanup__ as clen,  __Error_Handle__, __while__
 from user import __login__
+from login_client import __login_client__
 
 def __run__() -> None:
     clen()
@@ -15,7 +16,7 @@ def __run__() -> None:
             case 3:
                 __login__(3, 'Normal Worker')
             case 4:
-                pass
+                __login_client__('Client On')
             case 0:
                 break
             case _:

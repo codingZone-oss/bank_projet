@@ -1,4 +1,5 @@
 import os
+from conextion_mysql import cursor
 
 
 colors = {"clear":  "\033[m",
@@ -11,6 +12,21 @@ colors = {"clear":  "\033[m",
          "gray":    "\033[37m"}
 
 
+def __chek__(user_name: str, type: str) -> bool:
+    cursor.execute(f'select w.funtion_type from worker w inner join user u on u.cod_worker = w.cod where u.user_name = "{user_name}"')
+
+    vet = list()
+    for cur in cursor:  
+        for c in cur:
+            vet.append(c)
+    function = ''.join(vet)
+
+    print(function)
+
+    if function == type:
+        return True
+
+
 def __Error_Handle__(value=0, staff=None) -> None:
     if value == 1:
         palete()
@@ -18,7 +34,10 @@ def __Error_Handle__(value=0, staff=None) -> None:
         palete()
     elif value == 2:
         palete()
-        print(f'{colors["red"]}user_name or password Incorect!{colors["clear"]}'.center(40))
+        print(f'{colors["red"]}User_name or Password Incorect!{colors["clear"]}'.center(40))
+    elif value == 3:
+        palete()
+        print(f'{colors["red"]}Acesso Negado!{colors["clear"]}'.center(40))
     else:
         palete()
         print(f'{colors["red"]}Write only {staff} values!{colors["clear"]}'.center(40))
@@ -53,6 +72,34 @@ def __worker_menu__() -> int:
     print("1. Add Client")
     print('2  Print Client Extract')
     print("3. Search Client")
+    print("4. Update Client")
+    print("5. Delete Client")
+    print("6. Leav to login..")
+    print("0. Leav to Home..")
+
+    palete()
+    resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
+    return resp
+
+
+def __grh_menu__() -> int:
+
+    print("1. Search Client")
+    print("2. Update Client")
+    print("3. Delete Client")
+    print("4. Leav to login..")
+    print("0. Leav to Home..")
+
+    palete()
+    resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
+    return resp
+
+
+def __admin_menu__() -> int:
+
+    print("1. Add Worker")
+    print("2. Add Repartition")
+    print("3. Search Worker")
     print("4. Update Client")
     print("5. Delete Client")
     print("6. Leav to login..")

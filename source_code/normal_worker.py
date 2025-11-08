@@ -3,7 +3,7 @@ from funcionalitys import palete as pal, __worker_menu__, __cleanup__ as clen, _
 
 
 
-def worker_name(user_name: str) -> str:
+def __worker_name__(user_name: str) -> str:
     print(user_name)
     cursor.execute(f'select w.name_worker from worker w inner join user u on u.cod_worker = w.cod where u.user_name = "{user_name}"')
 
@@ -15,10 +15,10 @@ def worker_name(user_name: str) -> str:
     return str(name)
 
 
-def menu(user_name: str) -> int:
+def __menu_worker__(user_name: str) -> int:
     clen()
     print('Log as Normal Worker: ')
-    pal(True, f"WellCome Dr(a): {worker_name(user_name)}")
+    pal(True, f"WellCome Dr(a): {__worker_name__(user_name)}")
     while (True):
         resp = __worker_menu__()
         match resp:
@@ -46,12 +46,3 @@ def menu(user_name: str) -> int:
             case _:
                 __Error_Handle__(1)
 
-password = "est@nislau30"
-cursor.execute(f'select w.name_worker from worker w inner join user u on u.cod_worker = w.cod where u.pass_word = "{password}"')
-
-
-for cur in cursor:  
-    for c in cur:
-        #print(c)
-        vet = c
-print(vet)
