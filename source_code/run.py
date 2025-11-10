@@ -16,7 +16,7 @@ def __run__() -> None:
             case 3:
                 __login__(3, 'Normal Worker')
             case 4:
-                __login_client__('Client On')
+                __login_client__('Client')
             case 0:
                 break
             case _:

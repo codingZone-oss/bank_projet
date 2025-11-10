@@ -37,7 +37,10 @@ def __Error_Handle__(value=0, staff=None) -> None:
         print(f'{colors["red"]}User_name or Password Incorect!{colors["clear"]}'.center(40))
     elif value == 3:
         palete()
-        print(f'{colors["red"]}Acesso Negado!{colors["clear"]}'.center(40))
+        print(f'{colors["red"]}Access Denied!{colors["clear"]}'.center(40))
+    elif value == 4:
+        palete()
+        print(f'{colors["red"]}Invalid Acount Number!{colors["clear"]}'.center(40))
     else:
         palete()
         print(f'{colors["red"]}Write only {staff} values!{colors["clear"]}'.center(40))
@@ -103,6 +106,20 @@ def __admin_menu__() -> int:
     print("4. Update Client")
     print("5. Delete Client")
     print("6. Leav to login..")
+    print("0. Leav to Home..")
+
+    palete()
+    resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
+    return resp
+
+
+def __client_menu__() -> int:
+
+    print("1. Doposit")
+    print("2. Widraw ")
+    print("3. Consult")
+    print("4. Trasnfer")
+    print("5. Leav to login..")
     print("0. Leav to Home..")
 
     palete()
