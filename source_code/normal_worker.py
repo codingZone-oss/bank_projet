@@ -1,5 +1,6 @@
 from conextion_mysql import cursor
-from funcionalitys import palete as pal, __worker_menu__, __cleanup__ as clen, __Error_Handle__
+from funcionalitys import palete as pal, __worker_menu__, __cleanup__ as clen, __Error_Handle__, __while__
+from add_worker_client import ClientData
 
 
 
@@ -23,8 +24,8 @@ def __menu_worker__(user_name: str) -> int:
         resp = __worker_menu__()
         match resp:
             case 1:
-                pass
-                # __while__(add_client)
+                obj = ClientData()
+                __while__(obj.__get_data__())
             case 2:
                 pass
                 # __while__(print_extract_client)

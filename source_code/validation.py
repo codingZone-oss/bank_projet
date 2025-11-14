@@ -98,13 +98,13 @@ def __valid_user_name__(user_name1) -> str:
 
 def __valid_date__(date1) -> str:
     date = input(date1).strip()
-    a = date[0:2]
-    b = date[3:5]
-    c = date[6:10]
-    while len(date) != 10 or not a.isnumeric() or int(a) > 31 or not b.isnumeric() or int(b) > 12 or not c.isnumeric() or int(c) < 1950 or date[2] != '/' or date[5] != '/':
-        date = input(f"{colors['red']}Invalid Date, Try:01/02/2000 {colors['clear']}").strip()
-        a = date[0:2]
-        b = date[3:5]
-        c = date[6:10]
-    return (date)
+    a = date[0:4]
+    b = date[5:7]
+    c = date[8:10]
+    while len(date) != 10 or not a.isnumeric() or not int(a) > 1950 or not b.isnumeric() or not int(b) <= 12 or not c.isnumeric() or not int(c) <= 31 or date[4] != '-' or date[7] != '-':
+        date = input(f"{colors['red']}Invalid Date, Try:2000-02-01 {colors['clear']}").strip()
+        a = date[0:4]
+        b = date[5:7]
+        c = date[8:10]
+    return str(date)
 

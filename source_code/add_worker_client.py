@@ -1,33 +1,174 @@
 from conextion_mysql import cursor
+from validation import __valid_name__, __valid_identity_card__, __valid_phone_number__, __valid_email__, __valid_gender__, __valid_date__
+from funcionalitys import palete, __Error_Handle__, acount_number
+from datetime import date
+
+class CheckData:
+
+    def __check_age__(self, date_birth) -> bool:
+
+        var = int(date_birth[0:4])
+        age = date.today().year - var
+        if age >= 18:
+            return True
+        else:
+            return False
+        
+        
+    def __check_email__(self, email) -> bool:
+        try:
+            cursor.execute('select email from client')
+        except:
+            print('something wrong')
+
+        vet = list()
+        for line in cursor:
+            for cur in line:
+                vet.append(cur)
+        tester = 0
+        for v in vet:
+            if email == v:
+                tester = 1
+
+        if tester == 1:
+            return True
+        else:
+            return False
+
+
+    def __check_phone_number__(self, phone_number) -> bool:
+          
+        try:
+            cursor.execute('select phone_number from client')
+        except:
+            print('something wrong')
+
+        vet = list()
+        for line in cursor:
+            for cur in line:
+                vet.append(cur)
+        tester = 0
+        for v in vet:
+            if phone_number == v:
+                tester = 1
+
+        if tester == 1:
+            return True
+        else:
+            return False
+
+
+    def __check_identity_card__(self, identity_card) -> bool:
+
+        try:
+            cursor.execute('select number_identity_card from client')
+        except:
+            print('something wrong')
+
+        vet = list()
+        for line in cursor:
+            for cur in line:
+                vet.append(cur)
+        tester = 0
+        for v in vet:
+            if identity_card == v:
+                tester = 1
+
+        if tester == 1:
+            return True
+        else:
+            return False
+
+
+class ClientData(CheckData):
+
+    def __init__(self):
+        super().__init__()
+
+    def __get_data__(self) -> None:
+
+        palete(True, 'Personal Data')
+
+        name = __valid_name__('Enter The Name: ')
+        identity_card = __valid_identity_card__('Enter The Identity Card Number: ')
+        phone_number = __valid_phone_number__('Enter The Phone Number: ')
+        email = __valid_email__('Enter The Email: ')
+        gender = __valid_gender__('Enter The Gender: ')
+        date_birth = __valid_date__('Enter The Date Birth: ')
+
+        palete(True, 'Address Data')
+
+        nationality = __valid_name__('Enter The Nationality: ')
+        city = __valid_name__('Enter The CIty: ')
+        avenue = __name__('Enter The Avenue: ')
+        street = __name__('Enter The Street: ')
+        district = __name__('Enter The District: ')
+        neighborhood = __name__('Enter The Neighborhood: ')
+
+        obj = InsertClient(name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood)
+
+        if self.__check_age__(date_birth) == False:
+            __Error_Handle__(5)
+
+        elif self.__check_email__(email) == True:
+            __Error_Handle__(6)
+
+        elif self.__check_phone_number__(phone_number) == True:
+            __Error_Handle__(7)
+
+        elif self.__check_identity_card__(identity_card) == True:
+            __Error_Handle__(8)
+            
+        else:
+            palete(True, 'Acount Created with Success!')
+            acount_number()
+            obj.__insert_client_data__()
+            obj.__insert_acount_data__(acount_number)
+            obj.__insert_transfer__()
+            obj.__inert_deposit__()
+            obj.__insert_widraw__()
+
+
 
 class InsertClient:
 
-    def __select__(self) -> list:
-        cursor.execute('select cod, cod_repartition, cod_acount_access from client')
+
+    def __init__(self, name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood) -> None:
+        self.__name = name
+        self.__city = city
+        self.__email = email
+        self.__gender = gender
+        self.__street = street
+        self.__avenue = avenue
+        self.__district = district
+        self.__date_birth = date_birth
+        self.__nationality = nationality
+        self.__phone_number = phone_number
+        self.__neighborhood = neighborhood
+        self.__identity_card = identity_card
+        self.__cod = self.select()[0] + 1
+        self.__cod_acount_access = self.select()[1] + 1
+
+    def __insert_client_data__(self) -> None:
+        cursor.execute(f"insert into client values({self.__cod}, '{self.__name}', '{self.__identity_card}','{self.__phone_number}', '{self.__email}', '{self.__date_birth}', '{self.__gender}', '{self.__nationality}', '{self.__city}', '{self.__district}', '{self.__avenue}', '{self.__neighborhood}', '{self.__street}', {self.__cod_acount_access});")
+    
+    def __insert_acount_data__(self, acount_number) -> None:
+        cursor.execute(f"insert into acount_access values({self.__cod}, {acount_number}, default, default, {self.__cod}, {self.__cod}, {self.__cod})")
+    
+    def __insert_transfer__(self) -> None:
+        cursor.execute(f"insert into transfer values({self.__cod}, default, default, default, default)")
+
+    def __inert_deposit__(self) -> None:
+        cursor.execute(f"insert into deposit values({self.__cod}, default, default)")
+    
+    def __insert_widraw__(self) -> None:
+        cursor.execute(f"insert into widraw values({self.__cod}, default, default)")
+
+    def select(self) -> list:
+        cursor.execute('select count(cod), count(cod_acount_access) from client')
 
         vet = list()
         for curs in cursor:
-            vet.append(curs)
-        print(vet)
-
-    def __init__(self) -> None:
-        self.__cod = 0
-        self.__name = None
-        self.__city = None
-        self.__avenue = None
-        self.__street = None
-        self.__district = None
-        self.__phone_number = None 
-        self.__neighborhood = None
-        self.__identity_tiket = None
-        self.__cod_repartition = 0
-        self.__cod_acount_access = 0
-
-    def __insert_data__(self) -> None:
-        cursor.execute(f"insert into client values({self.__cod}, '{self.__name}', '{self.__identity_tiket}','{self.__phone_number}', '{self.__city}', '{self.__district}', '{self.__avenue}', '{self.__neighborhood}', '{self.__street}', {self.__cod_repartition}, {self.__cod_acount_access});")
-
-    def print1(self) :
-        return self.__cod
-    
-obj = InsertClient()
-obj.__select__()
+            for c in curs:
+                vet.append(c)
+        return vet

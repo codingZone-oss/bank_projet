@@ -1,5 +1,7 @@
 import os
 from conextion_mysql import cursor
+from random import shuffle
+
 
 
 colors = {"clear":  "\033[m",
@@ -41,6 +43,18 @@ def __Error_Handle__(value=0, staff=None) -> None:
     elif value == 4:
         palete()
         print(f'{colors["red"]}Invalid Acount Number!{colors["clear"]}'.center(40))
+    elif value == 5:
+        palete()
+        print(f'{colors["red"]}The Age Isn´t Anougth!{colors["clear"]}'.center(40))
+    elif value == 6:
+        palete()
+        print(f'{colors["red"]}Email allready Exists!{colors["clear"]}'.center(40))
+    elif value == 7:
+        palete()
+        print(f'{colors["red"]}Phone Number allready Exists!{colors["clear"]}'.center(40))
+    elif value == 8:
+        palete()
+        print(f'{colors["red"]}Identity_card allready Exists!{colors["clear"]}'.center(40))
     else:
         palete()
         print(f'{colors["red"]}Write only {staff} values!{colors["clear"]}'.center(40))
@@ -184,6 +198,22 @@ def __while__(argument) -> None:
             break
 
 
+def acount_number() -> int:
+    number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    shuffle(number)
+
+    number1 = number[:9]
+
+    valor = 1
+    for c in range(5):
+        number1.append(valor)
+        valor = 0
+        if c == 3:
+            valor = 1
+    number2 = int("".join(map(str, number1)))
+
+    return number2
+
 '''
 def bilhete(bi1) -> str:
     bi = input(bi1)
@@ -223,6 +253,5 @@ def return_int() -> int:
     shuffle(conta)
     numero_unico = int("".join(map(str, conta)))
     return numero_unico
-
 
 '''
