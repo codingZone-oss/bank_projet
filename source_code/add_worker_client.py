@@ -99,11 +99,11 @@ class ClientData(CheckData):
         palete(True, 'Address Data')
 
         nationality = __valid_name__('Enter The Nationality: ')
-        city = __valid_name__('Enter The CIty: ')
-        avenue = __name__('Enter The Avenue: ')
-        street = __name__('Enter The Street: ')
-        district = __name__('Enter The District: ')
-        neighborhood = __name__('Enter The Neighborhood: ')
+        city = input('Enter The City: ')
+        avenue = input('Enter The Avenue: ')
+        street = input('Enter The Street: ')
+        district = input('Enter The District: ')
+        neighborhood = input('Enter The Neighborhood: ')
 
         obj = InsertClient(name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood)
 

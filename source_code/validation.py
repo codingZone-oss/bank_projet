@@ -66,9 +66,11 @@ def __valid_password__(password1) -> str:
 
 def __valid_email__(email1) -> str:
     while True:
-        email = input(email1).split("@")
 
-        if email1.count('@') != 1:
+        email3 =  input(email1)
+        email = (email3).split('@')
+
+        if email3.count('@') != 1:
             print(f"{colors['red']}Invalid email!{colors['clear']}")
             continue
         
