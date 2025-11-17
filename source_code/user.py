@@ -57,6 +57,7 @@ def __login__(value, funtion) -> None:
         if tester == 2:
             palete()
             __cleanup__()
+            __cleanup__()
             palete()
             break
         

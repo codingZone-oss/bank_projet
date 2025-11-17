@@ -1,6 +1,6 @@
 from conextion_mysql import cursor
 from validation import __valid_name__, __valid_identity_card__, __valid_phone_number__, __valid_email__, __valid_gender__, __valid_date__
-from funcionalitys import palete, __Error_Handle__, acount_number
+from funcionalitys import palete, __Error_Handle__, acount_number, colors
 from datetime import date
 
 class CheckData:
@@ -98,14 +98,13 @@ class ClientData(CheckData):
 
         palete(True, 'Address Data')
 
-        nationality = __valid_name__('Enter The Nationality: ')
+        nationality = input('Enter The Nationality: ')
         city = input('Enter The City: ')
         avenue = input('Enter The Avenue: ')
         street = input('Enter The Street: ')
         district = input('Enter The District: ')
         neighborhood = input('Enter The Neighborhood: ')
 
-        obj = InsertClient(name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood)
 
         if self.__check_age__(date_birth) == False:
             __Error_Handle__(5)
@@ -120,18 +119,24 @@ class ClientData(CheckData):
             __Error_Handle__(8)
             
         else:
-            palete(True, 'Acount Created with Success!')
-            acount_number()
-            obj.__insert_client_data__()
-            obj.__insert_acount_data__(acount_number)
-            obj.__insert_transfer__()
-            obj.__inert_deposit__()
-            obj.__insert_widraw__()
+            try:
+                obj = InsertClient(name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood)
 
+                obj.__insert_transfer__()
+                obj.__inert_deposit__()
+                obj.__insert_widraw__()
+                obj.__insert_acount_data__(acount_number())
+                obj.__insert_client_data__()
+                palete(True, f'{colors["sky_blue"]}Acount of {name} Created with Success!{colors["clear"]}')
+                print(acount_number())
+                
+            except Exception as e:
+                print('There is a Mistake to Insert:', e)
+            finally:
+                cursor.close()
 
 
 class InsertClient:
-
 
     def __init__(self, name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood) -> None:
         self.__name = name
@@ -153,19 +158,19 @@ class InsertClient:
         cursor.execute(f"insert into client values({self.__cod}, '{self.__name}', '{self.__identity_card}','{self.__phone_number}', '{self.__email}', '{self.__date_birth}', '{self.__gender}', '{self.__nationality}', '{self.__city}', '{self.__district}', '{self.__avenue}', '{self.__neighborhood}', '{self.__street}', {self.__cod_acount_access});")
     
     def __insert_acount_data__(self, acount_number) -> None:
-        cursor.execute(f"insert into acount_access values({self.__cod}, {acount_number}, default, default, {self.__cod}, {self.__cod}, {self.__cod})")
+        cursor.execute(f"insert into acount_access values({self.__cod}, {acount_number}, default, default, {self.__cod}, {self.__cod}, {self.__cod});")
     
     def __insert_transfer__(self) -> None:
-        cursor.execute(f"insert into transfer values({self.__cod}, default, default, default, default)")
+        cursor.execute(f"insert into transfer values({self.__cod}, default, default, default, default);")
 
     def __inert_deposit__(self) -> None:
-        cursor.execute(f"insert into deposit values({self.__cod}, default, default)")
+        cursor.execute(f"insert into deposit values({self.__cod}, default, default);")
     
     def __insert_widraw__(self) -> None:
-        cursor.execute(f"insert into widraw values({self.__cod}, default, default)")
+        cursor.execute(f"insert into widraw values({self.__cod}, default, default);")
 
     def select(self) -> list:
-        cursor.execute('select count(cod), count(cod_acount_access) from client')
+        cursor.execute('select count(cod), count(cod_acount_access) from client;')
 
         vet = list()
         for curs in cursor:

@@ -185,7 +185,7 @@ def real(test) -> float:
 
 def __while__(argument) -> None:
     while True:
-        argument
+        argument()
         palete()
         resp = input('\033[33mDo you Proced: \033[m').lower()
         if resp == "y":

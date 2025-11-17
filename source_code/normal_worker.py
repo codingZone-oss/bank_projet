@@ -5,7 +5,6 @@ from add_worker_client import ClientData
 
 
 def __worker_name__(user_name: str) -> str:
-    print(user_name)
     cursor.execute(f'select w.name_worker from worker w inner join user u on u.cod_worker = w.cod where u.user_name = "{user_name}"')
 
     vet = list()
@@ -25,7 +24,7 @@ def __menu_worker__(user_name: str) -> int:
         match resp:
             case 1:
                 obj = ClientData()
-                __while__(obj.__get_data__())
+                __while__(obj.__get_data__)
             case 2:
                 pass
                 # __while__(print_extract_client)

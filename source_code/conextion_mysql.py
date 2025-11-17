@@ -6,7 +6,8 @@ try:
     host = "localhost",
     user = "root",
     password = "",
-    database = "bank_bd"
+    database = "bank_bd",
+    autocommit = True
     )
 
 except FileNotFoundError:
