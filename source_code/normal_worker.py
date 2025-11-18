@@ -1,6 +1,6 @@
 from conextion_mysql import cursor
 from funcionalitys import palete as pal, __worker_menu__, __cleanup__ as clen, __Error_Handle__, __while__
-from add_worker_client import ClientData
+from add_client import ClientData
 
 
 
@@ -8,11 +8,8 @@ def __worker_name__(user_name: str) -> str:
     cursor.execute(f'select w.name_worker from worker w inner join user u on u.cod_worker = w.cod where u.user_name = "{user_name}"')
 
     vet = list()
-    for cur in cursor:  
-        for c in cur:
-            vet.append(c)
-    name = ''.join(vet)
-    return str(name)
+    [vet.append(c) for cur in cursor for c in cur]
+    return str(''.join(vet))
 
 
 def __menu_worker__(user_name: str) -> int:
@@ -23,7 +20,7 @@ def __menu_worker__(user_name: str) -> int:
         resp = __worker_menu__()
         match resp:
             case 1:
-                obj = ClientData()
+                obj = ClientData(user_name, __worker_name__(user_name))
                 __while__(obj.__get_data__)
             case 2:
                 pass

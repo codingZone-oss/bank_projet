@@ -74,6 +74,12 @@ def palete(boolean=False, text=None):
         print("_" * 30)
 
 
+def palete2(text=None):
+    print("-" * 30)
+    print(text. center(40))
+    print("-" * 30)
+
+
 def __menu__() -> int:
     print("1. Log as Adm")
     print("2. Log as Grh")

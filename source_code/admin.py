@@ -4,15 +4,11 @@ from funcionalitys import palete as pal, __admin_menu__, __cleanup__ as clen, __
 
 
 def __admin_name__(user_name: str) -> str:
-    print(user_name)
     cursor.execute(f'select w.name_worker from worker w inner join user u on u.cod_worker = w.cod where u.user_name = "{user_name}"')
 
     vet = list()
-    for cur in cursor:  
-        for c in cur:
-            vet.append(c)
-    name = ''.join(vet)
-    return str(name)
+    [vet.append(c) for cur in cursor for c in cur]
+    return str(''.join(vet))
 
 
 def __menu_admin__(user_name: str) -> int:

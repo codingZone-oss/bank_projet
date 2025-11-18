@@ -1,6 +1,6 @@
 from conextion_mysql import cursor
 from validation import __valid_name__, __valid_identity_card__, __valid_phone_number__, __valid_email__, __valid_gender__, __valid_date__
-from funcionalitys import palete, __Error_Handle__, acount_number, colors
+from funcionalitys import palete, __Error_Handle__, acount_number, colors, __cleanup__, palete2
 from datetime import date
 
 class CheckData:
@@ -82,12 +82,18 @@ class CheckData:
 
 class ClientData(CheckData):
 
-    def __init__(self):
+    def __init__(self, user_name, worker_name):
         super().__init__()
+        self.__user_name = user_name
+        self.__worker_name = worker_name
 
     def __get_data__(self) -> None:
+        __cleanup__()
+        print(f'WORKER: {colors['purple']}{self.__worker_name} {colors['clear']}')
 
-        palete(True, 'Personal Data')
+        palete2(f'{colors['sky_blue']}Creating Client Acount {colors['clear']}')
+        
+        palete(True, f'{colors['yelow']}Personal Data{colors['clear']}')
 
         name = __valid_name__('Enter The Name: ')
         identity_card = __valid_identity_card__('Enter The Identity Card Number: ')
@@ -126,8 +132,9 @@ class ClientData(CheckData):
                 obj.__inert_deposit__()
                 obj.__insert_widraw__()
                 obj.__insert_acount_data__(acount_number())
-                obj.__insert_client_data__()
-                palete(True, f'{colors["sky_blue"]}Acount of {name} Created with Success!{colors["clear"]}')
+                obj.__insert_client_data__(self.__user_name)
+                
+                palete(True, f'{colors["sky_blue"]}{name} Acount Created with Success!{colors["clear"]}')
                 print(acount_number())
                 
             except Exception as e:
@@ -154,9 +161,12 @@ class InsertClient:
         self.__cod = self.select()[0] + 1
         self.__cod_acount_access = self.select()[1] + 1
 
-    def __insert_client_data__(self) -> None:
+    def __insert_client_data__(self, user_name) -> None:
         cursor.execute(f"insert into client values({self.__cod}, '{self.__name}', '{self.__identity_card}','{self.__phone_number}', '{self.__email}', '{self.__date_birth}', '{self.__gender}', '{self.__nationality}', '{self.__city}', '{self.__district}', '{self.__avenue}', '{self.__neighborhood}', '{self.__street}', {self.__cod_acount_access});")
     
+        obj2 = WorkerClient(user_name)
+        obj2.insert(self.__cod)
+
     def __insert_acount_data__(self, acount_number) -> None:
         cursor.execute(f"insert into acount_access values({self.__cod}, {acount_number}, default, default, {self.__cod}, {self.__cod}, {self.__cod});")
     
@@ -173,7 +183,22 @@ class InsertClient:
         cursor.execute('select count(cod), count(cod_acount_access) from client;')
 
         vet = list()
-        for curs in cursor:
-            for c in curs:
-                vet.append(c)
+        [vet.append(c) for cur in cursor for c in cur]
         return vet
+
+
+class WorkerClient:
+    def __init__(self, user) -> None:
+        self.__user = user
+
+    def insert(self, cod) -> None:
+        cursor.execute(f'insert into add_client values({cod}, default, {cod}, {self.__select()})')
+
+    def __select(self) -> int:
+        cursor.execute(f'select w.cod from worker w join user u on u.cod_worker = w.cod where u.user_name = "{self.__user}"')
+        vet = list()
+        [vet.append(c) for cur in cursor for c in cur]
+        [test := v for v in vet]
+
+        return test
+    

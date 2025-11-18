@@ -9,9 +9,7 @@ def __select_number__() -> list:
         print("Something wrong")
 
     vet = list()
-    for cur in cursor:  
-        for c in cur:
-            vet.append(c)
+    [vet.append(c) for cur in cursor for c in cur]
     return list(vet)
 
 
@@ -20,7 +18,6 @@ def __login_client__(client) -> None:
         __cleanup__()
         print(f'Log as {client}:')
         palete()
-        # the acount number will be generete automaticly
         account_number = integer('account number: ')
         tester = tester1 = 0
         for s in __select_number__():
