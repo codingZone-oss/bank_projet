@@ -127,15 +127,17 @@ class ClientData(CheckData):
         else:
             try:
                 obj = InsertClient(name, phone_number, email, gender, date_birth, identity_card, nationality, city, avenue, street, district, neighborhood)
+                
+                acount_number1 = acount_number()
 
                 obj.__insert_transfer__()
                 obj.__inert_deposit__()
                 obj.__insert_widraw__()
-                obj.__insert_acount_data__(acount_number())
+                obj.__insert_acount_data__(acount_number1)
                 obj.__insert_client_data__(self.__user_name)
                 
                 palete(True, f'{colors["sky_blue"]}{name} Acount Created with Success!{colors["clear"]}')
-                print(acount_number())
+                print(acount_number1)
                 
             except Exception as e:
                 print('There is a Mistake to Insert:', e)
