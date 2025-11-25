@@ -14,13 +14,19 @@ colors = {"clear":  "\033[m",
          "gray":    "\033[37m"}
 
 
+def worker_kinde_menu() -> int:
+    print('1. Human Resource Manager')
+    print('2. Store Clerk')
+    palete()
+    resp = integer(f"{colors['yelow']}What´s Worker Kind:: {colors['clear']}")
+    return resp
+
+
 def __chek__(user_name: str, type: str) -> bool:
     cursor.execute(f'select w.funtion_type from worker w inner join user u on u.cod_worker = w.cod where u.user_name = "{user_name}"')
 
     vet = list()
-    for cur in cursor:  
-        for c in cur:
-            vet.append(c)
+    [vet.append(c) for cur in cursor for c in cur]
     function = ''.join(vet)
 
     print(function)
@@ -29,32 +35,14 @@ def __chek__(user_name: str, type: str) -> bool:
         return True
 
 
-def __Error_Handle__(value=0, staff=None) -> None:
+def __Error_Handle__(value=0, staff=None, text=None) -> None:
     if value == 1:
         palete()
-        print(f'{colors["red"]}Invalid Option!{colors["clear"]}'.center(40))
+        print(f'{colors["red"]}{text}{colors["clear"]}'.center(40))
         palete()
     elif value == 2:
         palete()
-        print(f'{colors["red"]}User_name or Password Incorect!{colors["clear"]}'.center(40))
-    elif value == 3:
-        palete()
-        print(f'{colors["red"]}Access Denied!{colors["clear"]}'.center(40))
-    elif value == 4:
-        palete()
-        print(f'{colors["red"]}Invalid Acount Number!{colors["clear"]}'.center(40))
-    elif value == 5:
-        palete()
-        print(f'{colors["red"]}The Age Isn´t Anougth!{colors["clear"]}'.center(40))
-    elif value == 6:
-        palete()
-        print(f'{colors["red"]}Email allready Exists!{colors["clear"]}'.center(40))
-    elif value == 7:
-        palete()
-        print(f'{colors["red"]}Phone Number allready Exists!{colors["clear"]}'.center(40))
-    elif value == 8:
-        palete()
-        print(f'{colors["red"]}Identity_card allready Exists!{colors["clear"]}'.center(40))
+        print(f'{colors["red"]}{text}{colors["clear"]}'.center(40))
     else:
         palete()
         print(f'{colors["red"]}Write only {staff} values!{colors["clear"]}'.center(40))

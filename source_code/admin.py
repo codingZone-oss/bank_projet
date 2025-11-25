@@ -1,5 +1,6 @@
 from conextion_mysql import cursor
-from funcionalitys import palete as pal, __admin_menu__, __cleanup__ as clen, __Error_Handle__
+from funcionalitys import palete as pal, __admin_menu__, __cleanup__ as clen, __Error_Handle__, __while__
+from add_worker import Worker
 
 
 
@@ -19,8 +20,8 @@ def __menu_admin__(user_name: str) -> int:
         resp = __admin_menu__()
         match resp:
             case 1:
-                pass
-                # __while__(add_worker)
+                obj = Worker()
+                __while__(obj.date_birth)
             case 2:
                 pass
                 # __while__(add_repartition)

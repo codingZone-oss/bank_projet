@@ -20,5 +20,5 @@ def __run__() -> None:
             case 0:
                 break
             case _:
-                __Error_Handle__(1)
+                __Error_Handle__(value=1, text='Invalid Option!')
 __run__()

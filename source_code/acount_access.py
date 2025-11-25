@@ -40,4 +40,4 @@ def access(acount_number)-> None:
                 tester = 2
                 return tester
             case _:
-                __Error_Handle__(1)
+                __Error_Handle__(value=2, text='Invalid Option!')

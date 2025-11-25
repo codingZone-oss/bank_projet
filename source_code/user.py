@@ -31,14 +31,14 @@ def __login__(value, funtion) -> None:
                     if __chek__(user_name, 'adm') == True:
                         tester = __menu_admin__(user_name)
                     else:
-                        __error_handle__(3)
+                        __error_handle__(value=2, text='Access Denied!')
                     
                 elif value == 2:
                     tester1 = 1
                     if __chek__(user_name, 'grh') == True:
                         tester = __menu_grh__(user_name)
                     else:
-                        __error_handle__(3)
+                        __error_handle__(value=2, text='Access Denied!')
 
                     
                 elif value == 3:
@@ -46,10 +46,10 @@ def __login__(value, funtion) -> None:
                     if __chek__(user_name, 'normal worker') == True:
                         tester = __menu_worker__(user_name)
                     else:
-                        __error_handle__(3)
+                        __error_handle__(value=2, text='Access Denied!')
                     
         if tester1 == 0:
-            __error_handle__(2)
+            __error_handle__(value=2, text='User_name or Password Incorect!')
 
         if tester == 1:
             continue

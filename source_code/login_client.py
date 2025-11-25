@@ -26,7 +26,7 @@ def __login_client__(client) -> None:
                 tester = 1
 
         if tester == 0:
-            __Error_Handle__(4)
+            __Error_Handle__(value=2, text='Invalid Acount Number!')
 
         if tester1 == 1:
             continue
