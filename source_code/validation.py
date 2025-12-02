@@ -1,20 +1,40 @@
-from funcionalitys import colors, __especial_character__ as char, __count_space__ as space, __count_numeric__
+from funcionalitys import __Error_Handle__ as eg, colors, __especial_character__ as char, __count_space__ as space, __count_numeric__, integer, palete
 
 
 def __valid_name__(name1) -> str:
     while True:
         name = input(name1).split()
         if len(name) < 2:
-            print(f"{colors['red']}Invalid Name!{colors['clear']}") 
+            eg(value=1, text = 'Invalid Name, Must be Over 2 Words!')
             continue
         elif __count_numeric__(name) == True:
-            print(f"{colors['red']}Invalid Name2 {colors['clear']}")
+            eg(value=1, text = 'Invalid Name Numeric Data Was Found')
             continue
-        elif [print(f"{colors['red']}Invalid Name!{colors['clear']}") for n in name for a in n if a in char()]:
+        elif [eg(value=1, text = 'Invalid Name No Special Character!') for n in name for a in n if a in char()]:
             continue
         else:
             name1 = " ".join(name)
             return str(name1).title().strip()
+        
+
+def __valid_acount_number__(number1) -> int:
+    while True:
+        number = integer(number1)
+        if len(number1) > 14 or len(number1) < 14:
+            eg(value=1, text = 'Invalid Acount Namber,Just 14 Digits')
+            continue
+        else:
+            return int(number)
+
+
+
+def __valid_local_name__(name1) -> str:
+    while True:
+        name = input(name1)
+        if name == "":
+            eg(value=1, text='Fill The Field')
+        else:
+            return str(name).title().strip()
 
 
 def __valid_phone_number__(number1) -> int:
@@ -110,3 +130,13 @@ def __valid_date__(date1) -> str:
         c = date[8:10]
     return str(date)
 
+
+def __valid_answerd__(func) -> str:
+    palete()
+    resp = input(func)
+    palete()
+    while resp != "y" and resp != "n":
+        palete()
+        resp = input(f'{colors["red"]}Write only{colors['clear']} [y/n]').lower()
+        palete()
+    return resp.lower()

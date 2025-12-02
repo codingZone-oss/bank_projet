@@ -1,7 +1,7 @@
 from conextion_mysql import cursor
 from funcionalitys import palete as pal, __worker_menu__, __cleanup__ as clen, __Error_Handle__, __while__
 from add_client import ClientData
-
+from CRUD_client import SearchClient
 
 
 def __worker_name__(user_name: str) -> str:
@@ -26,8 +26,8 @@ def __menu_worker__(user_name: str) -> int:
                 pass
                 # __while__(print_extract_client)
             case 3:
-                pass
-                # __while__(search_client)
+                obj = SearchClient()
+                # __while__(obj.__search__)
             case 4:
                 pass
                 # __while__(update_client)

@@ -20,8 +20,8 @@ def __menu_admin__(user_name: str) -> int:
         resp = __admin_menu__()
         match resp:
             case 1:
-                obj = Worker()
-                __while__(obj.date_birth)
+                obj = Worker(__admin_name__(user_name))
+                __while__(obj.all_function)
             case 2:
                 pass
                 # __while__(add_repartition)

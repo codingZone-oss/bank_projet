@@ -1,6 +1,6 @@
 from conextion_mysql import cursor  
 from validation import __valid_name__, __valid_identity_card__, __valid_phone_number__, __valid_email__, __valid_gender__, __valid_date__
-from funcionalitys import palete, __Error_Handle__, acount_number, colors, __cleanup__, palete2
+from funcionalitys import __Error_Handle__, acount_number, colors, __cleanup__, show_name, show_palet, show_palet2
 from datetime import date
 
 class CheckData:
@@ -15,9 +15,9 @@ class CheckData:
             return False
         
         
-    def check_email(self, email) -> bool:
+    def check_email(self, email, table) -> bool:
         try:
-            cursor.execute('select email from client')
+            cursor.execute(f'select email from {table}')
         except:
             print('something wrong')
 
@@ -32,10 +32,10 @@ class CheckData:
             return False
 
 
-    def check_phone_number(self, phone_number) -> bool:
+    def check_phone_number(self, phone_number, table) -> bool:
           
         try:
-            cursor.execute('select phone_number from client')
+            cursor.execute(f'select phone_number from {table}')
         except:
             print('something wrong')
 
@@ -50,9 +50,9 @@ class CheckData:
             return False
 
 
-    def check_identity_card_client(self, identity_card) -> bool:
+    def check_identity_card(self, identity_card, table) -> bool:
         try:
-            cursor.execute('select number_identity_card from client')
+            cursor.execute(f'select number_identity_card from {table}')
         except Exception as e:
             print(f'something wrong {e}')
 
@@ -66,22 +66,6 @@ class CheckData:
         else:
             return False
 
-
-    def check_identity_card_worker(self, identity_card) -> bool:
-        try:
-            cursor.execute('select number_identity_card from worker')
-        except Exception as e:
-            print(f'something wrong {e}')
-
-        vet = list()
-        tester = 0
-        [vet.append(cur) for line in cursor for cur in line]
-        [tester := 1 for v in vet if identity_card == v]
- 
-        if tester == 1:
-            return True
-        else:
-            return False
 
 class ClientData(CheckData):
 
@@ -90,23 +74,13 @@ class ClientData(CheckData):
         self.__user_name = user_name
         self.__worker_name = worker_name
 
-    def __show_worker_name(self) -> None:
-        __cleanup__()
-        print(f'WORKER: {colors['purple']}{self.__worker_name} {colors['clear']}')
-    
-    def __show_palet2(self) -> None:
-        palete2(f'{colors['sky_blue']}Creating Client Acount {colors['clear']}')
-
-    def __show_palet(self, text: str) -> None:
-        palete(True, f'{colors['yelow']}{text}{colors['clear']}')
-
     def __get_data__(self) -> None:
         
-        self.__show_worker_name()
+        show_name(self.__worker_name, 'WORKER')
 
-        self.__show_palet2()
+        show_palet2('Creating Client Acount')
 
-        self.__show_palet('Personal Data')
+        show_palet('Personal Data')
 
         name = __valid_name__('Enter The Name: ')
         identity_card = __valid_identity_card__('Enter The Identity Card Number: ')
@@ -115,7 +89,7 @@ class ClientData(CheckData):
         gender = __valid_gender__('Enter The Gender: ')
         date_birth = __valid_date__('Enter The Date Birth: ')
 
-        self.__show_palet('Address Data')
+        show_palet('Address Data')
 
         nationality = input('Enter The Nationality: ')
         city = input('Enter The City: ')
@@ -128,13 +102,13 @@ class ClientData(CheckData):
         if self.check_age(date_birth) == False:
             __Error_Handle__(value=2, text='The Age Isn´t Anougth!')
 
-        elif self.check_email(email) == True:
+        elif self.check_email(email, 'client') == True:
             __Error_Handle__(value=2, text='Email allready Exists!')
 
-        elif self.check_phone_number(phone_number) == True:
+        elif self.check_phone_number(phone_number, 'client') == True:
             __Error_Handle__(value=2, text='Phone Number allready Exists!')
 
-        elif self.check_identity_card_client(identity_card) == True:
+        elif self.check_identity_card(identity_card, 'client') == True:
             __Error_Handle__(value=2, text='Identity_card allready Exists!')
         
         elif self.check_identity_card_worker(identity_card) == True:
@@ -152,7 +126,7 @@ class ClientData(CheckData):
                 obj.__insert_acount_data__(acount_number1)
                 obj.__insert_client_data__(self.__user_name)
                 
-                self.__show_palet(f'{colors["sky_blue"]}{name} Acount Created with Success!{colors["clear"]}')
+                show_palet(f'{colors["sky_blue"]}{name} Acount Created with Success!{colors["clear"]}')
                 print(acount_number1)
                 
             except Exception as e:
@@ -199,7 +173,6 @@ class InsertClient:
 
     def select(self) -> list:
         cursor.execute('select count(cod), count(cod_acount_access) from client;')
-
         vet = list()
         [vet.append(c) for cur in cursor for c in cur]
         return vet
@@ -219,3 +192,6 @@ class WorkerClient:
         [test := v for v in vet]
 
         return test
+
+# obj = CheckData()
+# print(obj.check_phone_number(933676256, 'worker'))

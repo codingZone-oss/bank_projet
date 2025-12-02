@@ -3,6 +3,27 @@ from conextion_mysql import cursor
 from random import shuffle
 
 
+def show_name(name1, text=None) -> None:
+    __cleanup__()
+    print(f'{text}: {colors['purple']}{name1} {colors['clear']}')
+
+def show_palet2(text) -> None:
+    palete2(f'{colors['sky_blue']}{text}{colors['clear']}')
+
+def show_palet(text: str) -> None:
+    palete(True, f'{colors['yelow']}{text}{colors['clear']}')
+
+
+def menu_client()-> int:
+    show_palet2('How do you Pretend Search')
+    print("1. Search as Name")
+    print("2. Search as Acount Number")
+    print("3. Search as Identity Card Numebr")
+    print("0. Leav..")
+    palete()
+    resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
+    return resp
+
 
 colors = {"clear":  "\033[m",
          "red":     "\033[31m",
@@ -15,6 +36,7 @@ colors = {"clear":  "\033[m",
 
 
 def worker_kinde_menu() -> int:
+    show_palet2('Select the Function kind')
     print('1. Human Resource Manager')
     print('2. Store Clerk')
     palete()
