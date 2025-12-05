@@ -43,5 +43,5 @@ class DeletClient(SearchClient):
     pass
 
 
-obj = SearchClient()
-obj.__search__()
+# obj = SearchClient()
+# obj.__search__()
