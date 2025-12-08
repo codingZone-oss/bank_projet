@@ -144,9 +144,9 @@ class WorkerSql:
     def insert(self, name, identity, phone, birth, kind, email, complements, ) -> None:
         cursor.execute(f"insert into worker values({self.select2()[0]+1}, '{name}', '{identity}', '{kind}', '{birth}', '{phone}', '{email}', '{complements[0]}', '{complements[1]}', '{complements[4]}', '{complements[2]}', '{complements[5]}', '{complements[3]}', default);")
 
-    def update(self, name) -> None:
-        cursor.execute(f"UPDATE worker SET name_worker = 'New Name' WHERE name_worker = '{name}';")
-        
+    def update(self, cod, name, identity, phone, birth, kind, email, complement) -> None:
+        cursor.execute(f"UPDATE worker SET name_worker = '{name}', number_identity_card = '{identity}', funtion_type = '{kind}', date_birth = '{birth}', phone_number = {phone}, email = '{email}', nacionality = '{complement[0]}', city = '{complement[1]}', district = '{complement[4]}', avenue = '{complement[2]}', neighborhood = '{complement[5]}', street = '{complement[3]}' WHERE cod = {cod} limit 1;")
+
 class UserSql(WorkerSql):
 
     def select(self) -> list:
@@ -157,3 +157,7 @@ class UserSql(WorkerSql):
     
     def insert(self, user_name:str, password:str) -> None:
         cursor.execute(f"insert into user values ({self.select1()[0]+1}, '{user_name}', '{password}', '{self.select2()[0]}')")
+
+    def update(self, cod_worker:int, user_name:str, password:str) -> None:
+        try:cursor.execute(f"UPDATE user SET user_name = '{user_name}', pass_word = '{password}' WHERE cod_worker = {cod_worker} limit 1;")
+        except Exception as e:print(f'Probably the Worker Do Not Have an User Account: {e}')

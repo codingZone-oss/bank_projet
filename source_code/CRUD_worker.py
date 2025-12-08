@@ -49,12 +49,11 @@ class UpdateWorker(SearchWorker):
         else:
             if len(tester) == 1:obj = NewsData(tester[0]); obj.all_function()
             else:
-                for v in range(len(tester)):value.append(v+1)
+                for v in range(len(tester)):value.append(v)
                 while True:
                     resp = integer(f"Select the Worker to Update {value}: ")
                     if resp in value: obj = NewsData(tester[resp]); obj.all_function();break
-                    else:
-                        __Error_Handle__(value=1, text='Invalid Option!');continue
+                    else:__Error_Handle__(value=1, text='Invalid Option!');continue
 
 class UpdateDelete(SearchWorker):
     pass

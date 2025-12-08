@@ -150,15 +150,15 @@ class NewsData(CheckData):
 
         answ = __valid_answerd__('Also Update the New User for this Worker [Y:N]: ')
         obj = WorkerSql()
-        obj.update(new_name, new_identity, new_phone, new_birth, new_kind, new_email, new_complements)
+        obj.update(self.select(self.old_name)[0], new_name, new_identity, new_phone, new_birth, new_kind, new_email, new_complements)
         
         if answ == 'y':
-            user_name = self.user_name()
-            password = self.password()
+            new_user_name = self.new_user_name()
+            new_password = self.new_password()
             obj = UserSql()
-            obj.insert(user_name, password) 
+            obj.update(self.select(self.old_name)[0], new_user_name, new_password) 
         
         show_palet2(f'{new_kind.upper()} {new_name.capitalize()} Updated with Success!')
 
-obj = NewsData('new name')
-print(obj.new_password())
+# obj = NewsData('new name')
+# print(obj.new_password())
