@@ -1,6 +1,7 @@
 from conextion_mysql import cursor
 from funcionalitys import palete as pal, __admin_menu__, __cleanup__ as clen, __Error_Handle__, __while__
 from add_worker import Worker
+from CRUD_worker import SearchWorker, UpdateWorker
 
 
 
@@ -13,10 +14,10 @@ def __admin_name__(user_name: str) -> str:
 
 
 def __menu_admin__(user_name: str) -> int:
-    clen()
-    print('Log as Admin: ')
-    pal(True, f"WellCome Dr(a): {__admin_name__(user_name)}")
     while (True):
+        clen()
+        print('Log as Admin: ')
+        pal(True, f"WellCome Dr(a): {__admin_name__(user_name)}")
         resp = __admin_menu__()
         match resp:
             case 1:
@@ -26,11 +27,13 @@ def __menu_admin__(user_name: str) -> int:
                 pass
                 # __while__(add_repartition)
             case 3:
+                obj = SearchWorker()
+                __while__(obj.__search__)
                 pass
-                # __while__(search_client)
             case 4:
-                pass 
-                # __while__(update_client)
+                obj = UpdateWorker()
+                __while__(obj.__update__)
+                pass
             case 5:
                 pass
                 # __while__(delete_client)

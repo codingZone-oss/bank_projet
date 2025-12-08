@@ -18,7 +18,17 @@ def menu_client()-> int:
     show_palet2('How do you Pretend Search')
     print("1. Search as Name")
     print("2. Search as Acount Number")
-    print("3. Search as Identity Card Numebr")
+    print("3. Search as Identity Card Number")
+    print("0. Leav..")
+    palete()
+    resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
+    return resp
+
+def menu_worker()-> int:
+    show_palet2('How do you Pretend Search')
+    print("1. Search as Name")
+    print("2. Search as Phone Number")
+    print("3. Search as Identity Card Number")
     print("0. Leav..")
     palete()
     resp = integer(f"{colors['yelow']}what´s your choice: {colors['clear']}")
@@ -157,15 +167,11 @@ def __client_menu__() -> int:
     return resp
 
 
-def integer(value):
+def integer(value) -> int:
     while True:
-        try:
-            num = int(input(value))
-        except ValueError:
-            __Error_Handle__(staff='Integer')
-            continue
-        else:
-            return num
+        try:num = int(input(value))
+        except ValueError:__Error_Handle__(staff='Integer');continue
+        else:return num
 
 
 def __especial_character__() -> list:

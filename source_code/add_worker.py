@@ -144,6 +144,9 @@ class WorkerSql:
     def insert(self, name, identity, phone, birth, kind, email, complements, ) -> None:
         cursor.execute(f"insert into worker values({self.select2()[0]+1}, '{name}', '{identity}', '{kind}', '{birth}', '{phone}', '{email}', '{complements[0]}', '{complements[1]}', '{complements[4]}', '{complements[2]}', '{complements[5]}', '{complements[3]}', default);")
 
+    def update(self, name) -> None:
+        cursor.execute(f"UPDATE worker SET name_worker = 'New Name' WHERE name_worker = '{name}';")
+        
 class UserSql(WorkerSql):
 
     def select(self) -> list:

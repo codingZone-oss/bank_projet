@@ -13,10 +13,10 @@ def __worker_name__(user_name: str) -> str:
 
 
 def __menu_worker__(user_name: str) -> int:
-    clen()
-    print('Log as Normal Worker: ')
-    pal(True, f"WellCome Dr(a): {__worker_name__(user_name)}")
     while (True):
+        clen()
+        print('Log as Normal Worker: ')
+        pal(True, f"WellCome Dr(a): {__worker_name__(user_name)}")
         resp = __worker_menu__()
         match resp:
             case 1:
@@ -27,7 +27,7 @@ def __menu_worker__(user_name: str) -> int:
                 # __while__(print_extract_client)
             case 3:
                 obj = SearchClient()
-                # __while__(obj.__search__)
+                __while__(obj.__search__)
             case 4:
                 pass
                 # __while__(update_client)

@@ -12,10 +12,10 @@ def __grh_name__(user_name: str) -> str:
 
 
 def __menu_grh__(user_name: str) -> int:
-    clen()
-    print('Log as GRH Worker: ')
-    pal(True, f"WellCome Dr(a): {__grh_name__(user_name)}")
     while (True):
+        clen()
+        print('Log as GRH Worker: ')
+        pal(True, f"WellCome Dr(a): {__grh_name__(user_name)}")
         resp = __grh_menu__()
         match resp:
             case 1:
