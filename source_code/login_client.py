@@ -1,6 +1,7 @@
 from funcionalitys import __cleanup__, integer, palete, __while__, __Error_Handle__, colors
 from conextion_mysql import cursor
 from acount_access import access
+from validation import __valid_acount_number__
 
 def __select_number__() -> list:
     try:
@@ -18,7 +19,7 @@ def __login_client__(client) -> None:
         __cleanup__()
         print(f'Log as {client}:')
         palete()
-        account_number = integer('account number: ')
+        account_number = __valid_acount_number__('account number: ')
         tester = tester1 = 0
         for s in __select_number__():
             if account_number == s:
@@ -26,7 +27,7 @@ def __login_client__(client) -> None:
                 tester = 1
 
         if tester == 0:
-            __Error_Handle__(value=2, text='Invalid Acount Number!')
+            __Error_Handle__(value=2, text='Acount Number Not found!')
 
         if tester1 == 1:
             continue
